@@ -1,5 +1,7 @@
 # Titanic classifier
 
+![](assets/confusion_matrix.png)
+
 ## Data
 
 Data is coming from Kaggle: [Titanic Dataset](https://www.kaggle.com/datasets/brendan45774/test-file)
