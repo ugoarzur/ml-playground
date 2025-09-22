@@ -6,26 +6,18 @@ Data is coming from Kaggle: [Titanic Dataset](https://www.kaggle.com/datasets/br
 
 ## The whole processus
 
-1. First download [the Titanic Dataset](https://www.kaggle.com/datasets/brendan45774/test-file) and place it in root directory
+1. I already provided a zipped archived of the dataset in `/assets/` but you may want to download a new version.
 2. Read the csv and get a sum of missing values
 
-> You can read the downloaded csv file with `pandas` an sum the null values.
-> This means we are missing 86 values for `Age`, 327 values for `Cabin` and 2 for `Embarked`.
-> Two things:
->
-> - The types are not only number and a machine learning model only knows `number`
-> - Data are missing in this data frame (`Gender`, `Cabin`, `Embarked`)
->
-> So we need to preprocess data first in order to use them.
+You can read the downloaded csv file with `pandas` an sum the null values.
+This means we are missing 86 values for `Age`, 327 values for `Cabin` and 2 for `Embarked`.
 
-```
-Fitting 5 folds for each of 120 candidates, totalling 600 fits
-Best parameters: {'metric': 'euclidean', 'n_neighbors': 3, 'weights': 'uniform'}
-Accuracy: 100.00%
-Confusion Matrix:
-[[69  0]
- [ 0 36]]
-```
+Two things:
+
+- The types are not only numbers and a machine learning model only knows numbers
+- Data are missing in this data frame (`Gender`, `Cabin`, `Embarked`)
+
+So we need to preprocess data first in order to use them.
 
 3. Preparing data
    Manipulation of the dataFrame with numpy to convert missing data into a value from 0 to 1.
