@@ -119,10 +119,10 @@ def tune_model(X_train, y_train):
     }
 
     model = KNeighborsClassifier()
-    grid_Search = GridSearchCV(model, param_grid, cv=5, n_jobs=-1, verbose=1)
-    grid_Search.fit(X_train, y_train)
-    print(f"Best parameters: {grid_Search.best_params_}")
-    return grid_Search.best_estimator_
+    grid_search = GridSearchCV(model, param_grid, cv=5, n_jobs=-1, verbose=1)
+    grid_search.fit(X_train, y_train)
+    print(f"Best parameters: {grid_search.best_params_}")
+    return grid_search.best_estimator_
 
 def plot_model(matrix):
     """
