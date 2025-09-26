@@ -1,5 +1,8 @@
+# Project
 .DS_Store
 *.joblib
+assets/data_preprocessed.csv
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

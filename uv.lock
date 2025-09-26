@@ -1898,7 +1898,7 @@ wheels = [
 ]
 
 [[package]]
-name = "titanic-classifier"
+name = "ml-playground"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
