@@ -1,41 +1,24 @@
-# Titanic classifier
+# Machine Learning Playground
 
-![](assets/confusion_matrix.png)
+## Projects
 
-## Data
-
-Data is coming from Kaggle: [Titanic Dataset](https://www.kaggle.com/datasets/brendan45774/test-file)
+- Titanic: Data is coming from Kaggle: [Titanic Dataset](https://www.kaggle.com/datasets/brendan45774/test-file)
+- Houses pricing: Data is coming straight from `sklearn.datasets.fetch_california_housing()`
 
 ## The whole processus
 
-1. I already provided a zipped archived of the dataset in `/assets/` but you may want to download a new version.
-2. Read the csv and get a sum of missing values
-
-You can read the downloaded csv file with `pandas` an sum the null values.
-This means we are missing 86 values for `Age`, 327 values for `Cabin` and 2 for `Embarked`.
-
-Two things:
-
-- The types are not only numbers and a machine learning model only knows numbers
-- Data are missing in this data frame (`Gender`, `Cabin`, `Embarked`)
-
-So we need to preprocess data first in order to use them.
-
-3. Preparing data
-   Manipulation of the dataFrame with numpy to convert missing data into a value from 0 to 1.
+1. Fetch or get a dataset
+2. verify for missing values or bad type (models only accept numbers)
+3. Prepare data for model: manipulation of the dataFrame with numpy to convert missing data into a value from 0 to 1.
+4. Once you have your final dataFrame, if you have don't have _features_ and _target variables_ then make them. Split your DataFrame with `train_test_split()`
+5. Train the model on it.
+6. Evaluate the model
 
 ## How to run project
 
 ### With the code
 
 This project is using uv as package manager so be sure to have it on your computer.
-
-```bash
-uv sync
-uv run main.py
-```
-
-### As Jupyter Lab (still a work in progress)
 
 If you have a preference for jupyter labs there is a support for it too.
 
