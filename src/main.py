@@ -56,7 +56,7 @@ def preprocess_data(df: pd.DataFrame) -> pd.DataFrame:
         print("✅ All NaN values have been handled successfully!")
 
     print(df)
-    with open("assets/data_preprocessed.csv", "w") as f:
+    with open("assets/titanic/data_preprocessed.csv", "w") as f:
         df.to_csv(f, index=False)
 
     return df
@@ -156,7 +156,7 @@ def checking_missing_values(X_train, X_test):
 def main():
     # 1. display data and count null values
     print("Working on Titanic dataset")
-    data = pd.read_csv("assets/titanic.csv")
+    data = pd.read_csv("assets/titanic/titanic.csv")
     data.info()
     print(data.isnull().sum())
 
