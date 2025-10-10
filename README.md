@@ -27,6 +27,40 @@ uv sync
 jupyter lab
 ```
 
+# Architecture
+
+```
+ml-playground/
+├── backend/                     # API to serve models
+│   ├── api/
+│   │   ├── routes/
+│   │   │   ├── titanic.py      # POST /predict/titanic
+│   │   │   └── houses.py       # POST /predict/houses
+│   │   └── main.py             # FastAPI app
+│   └── requirements.txt
+├── frontend/                    # Web interface (in the future)
+│   ├── src/
+│   ├── package.json
+│   └── tsconfig.json
+├── ml/                          # ML code
+│   ├── shared/                  # Shared code between projects
+│   │   ├── visualization/       # Plot
+│   │   ├── metrics/             # Metrics
+│   │   └── preprocessing/       # Preprocessing data
+│   ├── projects/
+│   │   ├── titanic/
+│   │   │   ├── data/
+│   │   │   ├── features/
+│   │   │   ├── models/
+│   │   │   └── trained_models/  # .pkl ou .joblib
+│   │   └── houses/
+│   │       └── ...
+│   ├── jupyter/                 # Notebooks
+│   └── tests/
+├── assets/                      # Datasets, images, etc.
+└── docker-compose.yml           # Orchestration (optional)
+```
+
 # Resources
 
 | term                                                                                                                                                         | description                                                   |
