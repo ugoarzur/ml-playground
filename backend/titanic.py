@@ -1,30 +1,30 @@
-
-import pandas as pd
+import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
+
+# train_test_split is for: create a training set and testing set
+# GridSearchCV: test multiple scenarios for best performances
+# MinMaxScaler: cleaning data for the model (convert to a number from 0 to 1)
+# KNeighborsClassifier: the model we're using
+# Data vizualization
+import seaborn as sns
 
 # Machine Learning
 from sklearn.metrics import accuracy_score, confusion_matrix
 from sklearn.model_selection import GridSearchCV, train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.preprocessing import MinMaxScaler
-# train_test_split is for: create a training set and testing set
-# GridSearchCV: test multiple scenarios for best performances
-# MinMaxScaler: cleaning data for the model (convert to a number from 0 to 1)
-# KNeighborsClassifier: the model we're using
-
-# Data vizualization
-import seaborn as sns
-import matplotlib.pyplot as plt
 
 # Looking at the info we can see there is 86 missing Age data and 327 Cabin missing
 # We need to fill theses data as number from 0 to 1
+
 
 # Data cleaning
 def preprocess_data(df: pd.DataFrame) -> pd.DataFrame:
     """
     Drop unused columns, fill null values and convert in number type
     """
-    df.drop(columns=["PassengerId","Name","Ticket","Cabin"], inplace=True)
+    df.drop(columns=["PassengerId", "Name", "Ticket", "Cabin"], inplace=True)
 
     # Fill the missing values as "S" for Southampton, the most common embarkation point in the data
     df["Embarked"] = df["Embarked"].fillna("S")
@@ -35,17 +35,25 @@ def preprocess_data(df: pd.DataFrame) -> pd.DataFrame:
     # Fill missing Fare values with median fare
     if df["Fare"].isnull().any():
         fare_median = df["Fare"].median()
-        print(f"Filling {df['Fare'].isnull().sum()} missing Fare values with median: {fare_median}")
+        print(
+            f"Filling {df['Fare'].isnull().sum()} missing Fare values with median: {fare_median}"
+        )
         df["Fare"] = df["Fare"].fillna(fare_median)
 
     # Convert Gender for model
-    df["Sex"] = df["Sex"].map({'male': 1, 'female': 0})
+    df["Sex"] = df["Sex"].map({"male": 1, "female": 0})
 
     # Feature engineering
-    df["FamilySize"] = df["SibSp"] + df["Parch"] # parents + children
-    df["IsAlone"] = np.where(df["FamilySize"] == 0, 1, 0) # where there is no one then insert 1
-    df["FareBin"] = pd.qcut(df["Fare"], 4, labels=False) # categorization for ticket prices
-    df["AgeBin"] = pd.cut(df["Age"], bins=[0,12,20,40,60, np.inf], labels=False) # bins for ranged age of passengers
+    df["FamilySize"] = df["SibSp"] + df["Parch"]  # parents + children
+    df["IsAlone"] = np.where(
+        df["FamilySize"] == 0, 1, 0
+    )  # where there is no one then insert 1
+    df["FareBin"] = pd.qcut(
+        df["Fare"], 4, labels=False
+    )  # categorization for ticket prices
+    df["AgeBin"] = pd.cut(
+        df["Age"], bins=[0, 12, 20, 40, 60, np.inf], labels=False
+    )  # bins for ranged age of passengers
 
     # Final check for any remaining NaN values
     remaining_nans = df.isnull().sum().sum()
@@ -60,6 +68,7 @@ def preprocess_data(df: pd.DataFrame) -> pd.DataFrame:
         df.to_csv(f, index=False)
 
     return df
+
 
 # Fill in missing ages
 # because: the average age of passengers is different for 1rst class to second and third class
@@ -77,11 +86,17 @@ def fill_missing_ages(df: pd.DataFrame) -> pd.DataFrame:
             age_fill_map[pclass] = df[df["Pclass"] == pclass]["Age"].median()
 
     # Apply the median onto df if row["Age"] is null otherwize keep the original age
-    df["Age"] = df.apply(lambda row: age_fill_map[row["Pclass"]] if pd.isnull(row["Age"]) else row["Age"], axis=1)
+    df["Age"] = df.apply(
+        lambda row: age_fill_map[row["Pclass"]]
+        if pd.isnull(row["Age"])
+        else row["Age"],
+        axis=1,
+    )
     # df["Age"].fillna(df["Pclass"].map(age_fill_map), inplace=True)
     print(f"Age fill map: {age_fill_map}")
 
     return df
+
 
 def preparing_data(data: pd.DataFrame) -> list:
     """
@@ -96,6 +111,7 @@ def preparing_data(data: pd.DataFrame) -> list:
 
     return train_test_split(X, y, test_size=0.25, random_state=42)
 
+
 # Prediction and Evaluate
 def evaluate_model(model, X_test, y_test):
     """
@@ -106,6 +122,7 @@ def evaluate_model(model, X_test, y_test):
     matrix = confusion_matrix(y_test, prediction)
     return accuracy, matrix
 
+
 # Hyperparameter tuning - KeyNearestNeighbors
 def tune_model(X_train, y_train):
     """
@@ -113,9 +130,9 @@ def tune_model(X_train, y_train):
     Algorithm is "KeyNearestNeighbors"
     """
     param_grid = {
-        "n_neighbors": range(1,21),
+        "n_neighbors": range(1, 21),
         "metric": ["euclidean", "manhattan", "minkowski"],
-        "weights": ["uniform", "distance"]
+        "weights": ["uniform", "distance"],
     }
 
     model = KNeighborsClassifier()
@@ -124,16 +141,24 @@ def tune_model(X_train, y_train):
     print(f"Best parameters: {grid_search.best_params_}")
     return grid_search.best_estimator_
 
+
 def plot_model(matrix):
     """
     Plot the confusion matrix using seaborn heatmap
     """
-    plt.figure(figsize=(10,7))
-    sns.heatmap(matrix, annot=True, fmt='d', xticklabels=['Survived', 'Not Survived'], yticklabels=['Not Survived', 'Survived'])
-    plt.xlabel('Predicted')
-    plt.ylabel('Actual')
-    plt.title('Confusion Matrix')
+    plt.figure(figsize=(10, 7))
+    sns.heatmap(
+        matrix,
+        annot=True,
+        fmt="d",
+        xticklabels=["Survived", "Not Survived"],
+        yticklabels=["Not Survived", "Survived"],
+    )
+    plt.xlabel("Predicted")
+    plt.ylabel("Actual")
+    plt.title("Confusion Matrix")
     plt.show()
+
 
 def checking_missing_values(X_train, X_test):
     train_nans = X_train.isnull().sum().sum()
@@ -152,6 +177,7 @@ def checking_missing_values(X_train, X_test):
         return
 
     print("✅ No NaN values found before scaling - proceeding...")
+
 
 def main():
     # 1. display data and count null values
@@ -175,11 +201,12 @@ def main():
     # 5. Training the model and evaluation
     best_model = tune_model(X_train, y_train)
     accuracy, matrix = evaluate_model(best_model, X_test, y_test)
-    print(f'Accuracy: {accuracy*100:.2f}%')
-    print(f'Confusion Matrix:\n{matrix}')
+    print(f"Accuracy: {accuracy * 100:.2f}%")
+    print(f"Confusion Matrix:\n{matrix}")
 
     # 6. Data Visualization
     plot_model(matrix=matrix)
+
 
 if __name__ == "__main__":
     main()

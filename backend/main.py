@@ -1,4 +1,3 @@
-from typing import Union
 
 from fastapi import FastAPI
 
@@ -11,18 +10,5 @@ def read_root():
 
 
 @app.get("/items/{item_id}")
-def read_item(item_pwid: int, q: Union[str, None] = None):
+def read_item(item_pwid: int, q: str | None = None):
     return {"item_id": item_id, "q": q}
-
-
-
-from fastapi import APIRouter
-import joblib
-
-router = APIRouter()
-model = joblib.load('ml/projects/houses/trained_models/model.pkl')
-
-@router.post("/predict/houses")
-def predict(features: HouseFeatures):
-    prediction = model.predict([features.dict().values()])
-    return {"predicted_price": prediction[0]}
