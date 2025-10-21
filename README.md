@@ -1,20 +1,12 @@
 # Machine Learning Playground
 
-## Projects
+## A word on projects
 
-- Titanic: Data is coming from Kaggle: [Titanic Dataset](https://www.kaggle.com/datasets/brendan45774/test-file)
-- Houses pricing: Data is coming straight from `sklearn.datasets.fetch_california_housing()`
+Projects are splited within `~./ml/projects/<project-name>`.
+Each projet will share the venv, a `README.md` file will explain a bit on the project.
 
-## The whole processus
-
-1. Fetch or get a dataset
-2. verify for missing values or bad type (models only accept numbers)
-3. Prepare data for model: manipulation of the dataFrame with numpy to convert missing data into a value from 0 to 1.
-4. Once you have your final dataFrame, if you have don't have _features_ and _target variables_ then make them. Split your DataFrame with `train_test_split()`
-5. Train the model on it.
-6. Evaluate the model
-
-## How to run project
+- `houses`: a machine learning project to predict houses prices based on a well known and prepared dataset from sklearn.
+- `titanic`: a data manipulation project to create a heatmap of titanic catastrophe survivors.
 
 ### With the code
 
@@ -26,6 +18,76 @@ If you have a preference for jupyter labs there is a support for it too.
 uv sync
 jupyter lab
 ```
+
+## Repository Architecture
+
+```
+ml-playground/
+├── backend/                     # API to serve models
+│   ├── api/
+│   │   ├── routes/
+│   │   │   ├── titanic.py      # POST /predict/titanic
+│   │   │   └── houses.py       # POST /predict/houses
+│   │   └── main.py             # FastAPI app
+│   └── requirements.txt
+├── frontend/                    # Web interface (in the future)
+│   ├── src/
+│   ├── package.json
+│   └── tsconfig.json
+├── ml/                          # ML code
+│   ├── shared/                  # Shared code between projects
+│   │   ├── visualization/       # Plot
+│   │   ├── metrics/             # Metrics
+│   │   └── preprocessing/       # Preprocessing data
+│   ├── projects/
+│   │   ├── titanic/
+│   │   │   ├── data/            # loaders and stored data (csv, etc)
+│   │   │   ├── features/        # PolynomialFeatures
+│   │   │   ├── models/          # regression, classification, etc
+│   │   │   ├── trained_models/  # .pkl ou .joblib
+│   │   │   └── experiments/     # Configs, metrics history, compare
+│   │   └── houses/
+│   │       └── ...
+│   ├── jupyter/                 # Notebooks
+│   └── tests/
+├── assets/                      # Raw Datasets, images, etc.
+└── docker-compose.yml           # Orchestration (optional)
+```
+
+## Explanations
+
+### Projects Structure
+
+`data/` Preprocessed data storage and specific loaders
+
+- Loaders to load CSV and datasets
+- Raw data
+
+`features/` : Transformation
+
+- Feature engineering (PolynomialFeatures, encoders, scalers)
+
+`models/` : Blueprints, conception
+
+- Architectures definitions (RandomForest, XGBoost, etc.)
+- training code and hyperparametization
+
+`trained_models/` : The final product
+
+- Serialized trained models (.pkl, .joblib)
+- Ready for production
+
+`experiments/` : comparing step
+
+- Configurations
+- metrics history
+
+### Shared Structure
+
+- `metrics/`: metrics for training
+- `pipelines`: pipelines for composing models and reproduce them
+- `preprocessing`: data manipulation
+- `visualization`: ploting
 
 # Resources
 
