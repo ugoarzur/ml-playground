@@ -64,7 +64,7 @@ def preprocess_data(df: pd.DataFrame) -> pd.DataFrame:
         print("✅ All NaN values have been handled successfully!")
 
     print(df)
-    with open("assets/titanic/data_preprocessed.csv", "w") as f:
+    with open("assets/titanic/data/data_preprocessed.csv", "w", encoding="utf-8") as f:
         df.to_csv(f, index=False)
 
     return df
