@@ -19,6 +19,24 @@ uv sync
 jupyter lab
 ```
 
+## Linting & Formatting
+
+This project uses [Ruff](https://docs.astral.sh/ruff/) for linting and formatting (configured in `pyproject.toml`).
+
+```bash
+# Check for lint errors
+uv run ruff check .
+
+# Auto-fix what can be fixed
+uv run ruff check . --fix
+
+# Format code
+uv run ruff format .
+
+# Check formatting without modifying files
+uv run ruff format . --check
+```
+
 ## Repository Architecture
 
 ```
