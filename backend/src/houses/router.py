@@ -22,16 +22,20 @@ def startup():
 
 @router.post("/houses")
 def predict_house(features: HouseFeatures):
-    X = np.array([[
-        features.MedInc,
-        features.HouseAge,
-        features.AveRooms,
-        features.AveBedrms,
-        features.Population,
-        features.AveOccup,
-        features.Latitude,
-        features.Longitude,
-    ]])
+    X = np.array(
+        [
+            [
+                features.MedInc,
+                features.HouseAge,
+                features.AveRooms,
+                features.AveBedrms,
+                features.Population,
+                features.AveOccup,
+                features.Latitude,
+                features.Longitude,
+            ]
+        ]
+    )
 
     X_poly = poly_transformer.transform(X)
     prediction = house_model.predict(X_poly)

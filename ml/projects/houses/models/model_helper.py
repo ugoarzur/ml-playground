@@ -33,7 +33,9 @@ def compare_models(X_train, y_train, X_test, y_test):
     return results
 
 
-def grid_search_hgbr(X_train, y_train, X_test, y_test, max_iters=None, learning_rates=None):
+def grid_search_hgbr(
+    X_train, y_train, X_test, y_test, max_iters=None, learning_rates=None
+):
     """Manual grid search over HGBR hyperparameters.
 
     Returns (best_model, best_score, all_results).
