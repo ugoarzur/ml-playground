@@ -72,7 +72,7 @@ def preprocess_data(df: pd.DataFrame) -> pd.DataFrame:
 
 # Fill in missing ages
 # because: the average age of passengers is different for 1rst class to second and third class
-# don't want: the average age if the age is missing for everyone in the boat
+# don't want: the average age if thwe age is missing for everyone in the boat
 # want: the average of the class where the person is missing
 # example: if a first class passenger is missing an age, i want to get the median of all the 1rst class passengers
 def fill_missing_ages(df: pd.DataFrame) -> pd.DataFrame:
