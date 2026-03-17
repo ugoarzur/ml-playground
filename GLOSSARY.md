@@ -20,6 +20,7 @@ Terms and definitions used across this project's codebase and notebooks.
 | **LinearRegression** | Model fitting a linear relationship between features and target by minimizing the residual sum of squares. |
 | **PolynomialFeatures** | Transforms features by generating polynomial combinations (e.g. 8 features become 45), capturing non-linear relationships. |
 | **HistGradientBoostingRegressor** | Optimized gradient boosting regression model. Builds trees sequentially, each correcting the previous one's errors. |
+| **hgbr** | Common abbreviation for **HistGradientBoostingRegressor** (see above). Used as a variable name in code for brevity. |
 | **RandomForestRegressor** | Ensemble model that trains many decision trees on random subsets and averages their predictions. |
 | **joblib** | Library used to serialize (save) and deserialize (load) trained models to/from disk (`.pkl`, `.joblib` files). |
 | **random_state** | Seed for reproducibility — ensures the same random splits and results across runs. |
