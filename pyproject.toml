@@ -61,6 +61,8 @@ ignore = [
     "E501",   # line too long (handled by formatter)
     "B008",   # do not perform function calls in argument defaults
     "SIM108", # use ternary operator (sometimes less readable)
+    "N803",   # argument name should be lowercase (ML convention: X_train, X_test)
+    "N806",   # variable in function should be lowercase (ML convention: X, X_train)
 ]
 
 # Allow autofix for all enabled rules
